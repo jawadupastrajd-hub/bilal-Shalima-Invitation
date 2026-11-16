@@ -1,11 +1,11 @@
-# Bilal & Fatima — Premium Wedding Invitation
+# Bilal & Fatima — Shalima Invitation (Shalima-only variant)
 
-Static site: open `index.html` in a browser, or deploy the folder to Vercel. Keep your existing `assets/hero.png` in `assets/`.
+Static site: open `index.html` in a browser, or deploy the folder to Vercel. Keep your existing `assets/hero.jpg` in `assets/`.
 
 ## Verified content (do not change)
 - Couple: Bilal Aslam with Fatima Waheed
-- Mehndi: Saturday, 16 January 2027, 6:00 PM, Canal Homes
 - Shalima: Sunday, 17 January 2027, 1:00 PM, Lubaba Marquee
+- This variant is Shalima-only — no Mehndi anywhere.
 
 ## Where to edit
 Everything configurable is in the `CONFIG` block at the top of `script.js`:
@@ -19,7 +19,7 @@ In `index.html`, set `og:image` to the absolute image URL so WhatsApp and Facebo
 
 ## Behaviour notes
 - Opening cover appears once per browser session (sessionStorage).
-- Save the Date offers per-event Google Calendar links plus a single .ics with both events (Apple/Outlook).
-- Countdown targets 16 Jan 2027 6:00 PM PKT, then switches to "The celebrations have begun", then to "Thank you for celebrating with us".
+- Save the Date offers the Shalima Google Calendar link plus a Shalima .ics (Apple/Outlook).
+- Countdown targets 17 Jan 2027 1:00 PM PKT, then switches to "The celebrations have begun", then to "Thank you for celebrating with us".
 - All motion is disabled under `prefers-reduced-motion`.
 - Tested at 320, 375, 390, 430px with no horizontal overflow.
