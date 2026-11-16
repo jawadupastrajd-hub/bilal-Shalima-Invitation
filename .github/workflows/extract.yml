@@ -1,0 +1,28 @@
+name: Extract site zip
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'bilal-fatima-invitation.zip'
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract zip flat to repo root
+        run: |
+          unzip -o bilal-fatima-invitation.zip
+          rm -f bilal-fatima-invitation.zip
+      - name: Commit extracted files and remove zip and workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf .github
+          git add -A
+          git status --short
+          git commit -m "Extract bilal-fatima-invitation.zip flat to repo root" || echo "Nothing to commit"
+          git push
