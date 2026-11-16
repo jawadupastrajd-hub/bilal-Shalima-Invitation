@@ -1,5 +1,5 @@
 /* ==========================================================
-   Bilal Aslam — Shalima Invitation
+   Bilal Aslam & Fatima — Shalima Invitation
    Edit CONFIG only; everything else reads from it.
    ========================================================== */
 const CONFIG = {
@@ -212,12 +212,12 @@ if (pics.length < 2) {
 /* ---------- Save the Date ---------- */
 const toUTC = iso => new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
 const venueOf = key => CONFIG.venues[key].name;
-const details = 'Bilal Aslam — Shalima\n'
+const details = 'Bilal Aslam & Fatima Waheed — Shalima\n'
   + 'Shalima: Sunday 17 January 2027, 1:00 PM, Lubaba Marquee';
 
 CONFIG.events.forEach(ev => {
   const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text=' + encodeURIComponent(`${ev.title} — Bilal Aslam`)
+    + '&text=' + encodeURIComponent(`${ev.title} — Bilal & Fatima`)
     + '&dates=' + toUTC(ev.start) + '/' + toUTC(ev.end)
     + '&ctz=Asia/Karachi'
     + '&location=' + encodeURIComponent(CONFIG.venues[ev.key].location || CONFIG.venues[ev.key].name)
@@ -229,14 +229,14 @@ CONFIG.events.forEach(ev => {
 $('#icsBtn').addEventListener('click', () => {
   const esc = s => s.replace(/[,;\\]/g, m => '\\' + m).replace(/\n/g, '\\n');
   const stamp = toUTC(new Date().toISOString());
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Bilal Aslam//Shalima//EN', 'CALSCALE:GREGORIAN'];
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Bilal & Fatima//Shalima//EN', 'CALSCALE:GREGORIAN'];
   CONFIG.events.forEach(ev => lines.push(
     'BEGIN:VEVENT',
-    `UID:${ev.key}-2027-bilal-aslam@invitation`,
+    `UID:${ev.key}-2027-bilal-fatima@invitation`,
     `DTSTAMP:${stamp}`,
     `DTSTART:${toUTC(ev.start)}`,
     `DTEND:${toUTC(ev.end)}`,
-    `SUMMARY:${esc(ev.title + ' — Bilal Aslam')}`,
+    `SUMMARY:${esc(ev.title + ' — Bilal & Fatima')}`,
     `LOCATION:${esc(CONFIG.venues[ev.key].location || CONFIG.venues[ev.key].name)}`,
     `DESCRIPTION:${esc(details)}`,
     'END:VEVENT'
@@ -245,7 +245,7 @@ $('#icsBtn').addEventListener('click', () => {
   const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'Bilal-Aslam-Shalima.ics';
+  a.download = 'Bilal-Fatima-Shalima.ics';
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   closeMenu();
