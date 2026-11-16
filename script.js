@@ -1,5 +1,5 @@
 /* ==========================================================
-   Bilal & Fatima — Wedding Invitation
+   Bilal Aslam — Shalima Invitation
    Edit CONFIG only; everything else reads from it.
    ========================================================== */
 const CONFIG = {
@@ -12,7 +12,6 @@ const CONFIG = {
   // While location is empty, a drawn map with "Location pin will be added soon" shows instead.
   // Optional `link`: a Google Maps share link (maps.app.goo.gl/...) for the button only.
   venues: {
-    mehndi:  { name: 'Canal Homes',    location: '30.8159375,73.4215625', link: 'https://maps.app.goo.gl/K9ncFjTE76ovcvWB9' },
     shalima: { name: 'Lubaba Marquee', location: '30.8297265,73.4959468', link: 'https://maps.app.goo.gl/sA2DyD49abh244jL6' },
   },
 
@@ -23,7 +22,6 @@ const CONFIG = {
 
   // Times in Pakistan Standard Time (UTC+05:00). End times are estimates for calendar entries only.
   events: [
-    { key: 'mehndi',  title: 'Mehndi',  start: '2027-01-16T18:00:00+05:00', end: '2027-01-16T23:00:00+05:00' },
     { key: 'shalima', title: 'Shalima', start: '2027-01-17T13:00:00+05:00', end: '2027-01-17T17:00:00+05:00' },
   ],
 };
@@ -214,32 +212,31 @@ if (pics.length < 2) {
 /* ---------- Save the Date ---------- */
 const toUTC = iso => new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
 const venueOf = key => CONFIG.venues[key].name;
-const details = 'Bilal Aslam & Fatima Waheed — Wedding Celebrations\n'
-  + 'Mehndi: Saturday 16 January 2027, 6:00 PM, Canal Homes\n'
+const details = 'Bilal Aslam — Shalima\n'
   + 'Shalima: Sunday 17 January 2027, 1:00 PM, Lubaba Marquee';
 
 CONFIG.events.forEach(ev => {
   const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text=' + encodeURIComponent(`${ev.title} — Bilal & Fatima`)
+    + '&text=' + encodeURIComponent(`${ev.title} — Bilal Aslam`)
     + '&dates=' + toUTC(ev.start) + '/' + toUTC(ev.end)
     + '&ctz=Asia/Karachi'
     + '&location=' + encodeURIComponent(CONFIG.venues[ev.key].location || CONFIG.venues[ev.key].name)
     + '&details=' + encodeURIComponent(details);
-  const link = $(ev.key === 'mehndi' ? '#gcalMehndi' : '#gcalShalima');
+  const link = $('#gcalShalima');
   if (link) link.href = url;
 });
 
 $('#icsBtn').addEventListener('click', () => {
   const esc = s => s.replace(/[,;\\]/g, m => '\\' + m).replace(/\n/g, '\\n');
   const stamp = toUTC(new Date().toISOString());
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Bilal & Fatima//Wedding//EN', 'CALSCALE:GREGORIAN'];
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Bilal Aslam//Shalima//EN', 'CALSCALE:GREGORIAN'];
   CONFIG.events.forEach(ev => lines.push(
     'BEGIN:VEVENT',
-    `UID:${ev.key}-2027-bilal-fatima@invitation`,
+    `UID:${ev.key}-2027-bilal-aslam@invitation`,
     `DTSTAMP:${stamp}`,
     `DTSTART:${toUTC(ev.start)}`,
     `DTEND:${toUTC(ev.end)}`,
-    `SUMMARY:${esc(ev.title + ' — Bilal & Fatima')}`,
+    `SUMMARY:${esc(ev.title + ' — Bilal Aslam')}`,
     `LOCATION:${esc(CONFIG.venues[ev.key].location || CONFIG.venues[ev.key].name)}`,
     `DESCRIPTION:${esc(details)}`,
     'END:VEVENT'
@@ -248,7 +245,7 @@ $('#icsBtn').addEventListener('click', () => {
   const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'Bilal-Fatima-Wedding.ics';
+  a.download = 'Bilal-Aslam-Shalima.ics';
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   closeMenu();
